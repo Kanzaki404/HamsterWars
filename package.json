@@ -6,7 +6,7 @@
   "description": "a really cool app",
   "version": "1.0.0",
   "engines": {
-    "node": "6.11.1"
+    "node": "14.7.0"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
