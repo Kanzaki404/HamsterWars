@@ -856,11 +856,11 @@ export default function Arena() {
             <ConstantSpin>
               <FlagWrapperLeft>
                 <RedFlag />
-                <RedText>{customduo[1].name}</RedText>
+                <RedText>{customduo[0].name}</RedText>
               </FlagWrapperLeft>
               <TeamRed
                 chooseRed={() => CustomWinRed()}
-                redFighter={customduo[1]}
+                redFighter={customduo[0]}
               />
             </ConstantSpin>
           </CardWrapper>
@@ -878,11 +878,11 @@ export default function Arena() {
             <ConstantSpin>
               <TeamBlue
                 chooseBlue={() => CustomWinBlue()}
-                blueFighter={customduo[0]}
+                blueFighter={customduo[1]}
               />
               <FlagWrapperRight>
                 <BlueFlag />
-                <BlueText>{customduo[0].name}</BlueText>
+                <BlueText>{customduo[1].name}</BlueText>
               </FlagWrapperRight>
             </ConstantSpin>
           </CardWrapper>
@@ -940,11 +940,11 @@ export default function Arena() {
             <ConstantSpin>
               <WinText />
               <div className="red-winner">
-                <RedWinner redFighter={customduo[1]} />
+                <RedWinner redFighter={customduo[0]} />
               </div>
               <WinTextWrapper Red>
                 <div className="winner-text">
-                  <RedText>{customduo[1].name}</RedText>
+                  <RedText>{customduo[0].name}</RedText>
                 </div>
               </WinTextWrapper>
               {/* <FlagWrapperLeft>
@@ -1012,11 +1012,11 @@ export default function Arena() {
             <ConstantSpin>
               <WinText />
               <div className="red-winner">
-                <BlueWinner blueFighter={customduo[0]} />
+                <BlueWinner blueFighter={customduo[1]} />
               </div>
               <BlueWrapper>
                 <div className="winner-text">
-                  <RedText>{customduo[0].name}</RedText>
+                  <RedText>{customduo[1].name}</RedText>
                 </div>
               </BlueWrapper>
               {/* <FlagWrapperLeft>

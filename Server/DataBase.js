@@ -5,7 +5,6 @@ const url =
 const dbName = 'HamsterGoHam';
 const collectionName = 'Hamsters';
 
-
 function getAllHamsters(callback) {
   get({}, callback);
 }
@@ -77,11 +76,11 @@ function matchResult(id, callback) {
         }
         if (Object.keys(toObj)[0] === 'blue') {
           const result = await col.findOneAndUpdate(
-            { id: parseInt(toObj.blue) },
+            { id: parseInt(toObj.red) },
             { $inc: { wins: 1, games: 1 } }
           );
           result = await col.findOneAndUpdate(
-            { id: parseInt(toObj.red) },
+            { id: parseInt(toObj.blue) },
             { $inc: { defeats: 1, games: 1 } }
           );
         }
@@ -100,61 +99,55 @@ function matchResult(id, callback) {
   );
 }
 
-
-
 function search(query, callback) {
-	console.log(query)
-	const filter = {};
-	let sortFilter = {};
-	if( query.name) {
-		filter.name = { "$regex":query.name, $options: '-i'};
-	}
-	if(query.matchCount || query.winRate) {
-		let orderGames = null;
-		let orderWins = null;
-		if(query.matchCount === 'MM'){
-			orderGames = 1;	
-		}else{
-			orderGames = 1;
-		}
-		if(query.winRate === 'HWR'){
-			orderWins = 1
-		}else{
-			orderWins = 1
-		} 
-		sortFilter = {games: orderGames,wins: orderWins}
-	}
-	
+  console.log(query);
+  const filter = {};
+  let sortFilter = {};
+  if (query.name) {
+    filter.name = { $regex: query.name, $options: '-i' };
+  }
+  if (query.matchCount || query.winRate) {
+    let orderGames = null;
+    let orderWins = null;
+    if (query.matchCount === 'MM') {
+      orderGames = 1;
+    } else {
+      orderGames = 1;
+    }
+    if (query.winRate === 'HWR') {
+      orderWins = 1;
+    } else {
+      orderWins = 1;
+    }
+    sortFilter = { games: orderGames, wins: orderWins };
+  }
 
+  MongoClient.connect(
+    url,
+    { useUnifiedTopology: true },
+    async (error, client) => {
+      if (error) {
+        callback('"ERROR!! Could not connect"');
+        return; // exit the callback function
+      }
+      const col = client.db(dbName).collection(collectionName);
+      try {
+        console.log('what is the filter', filter);
 
-	MongoClient.connect(
-		url,
-		{ useUnifiedTopology: true },
-		async (error, client) => {
-			if( error ) {
-				callback('"ERROR!! Could not connect"');
-				return;  // exit the callback function
-			}
-			const col = client.db(dbName).collection(collectionName);
-			try {
-				console.log('what is the filter', filter)
-				
-				console.log(sortFilter);
-				const cursor = await col.find(filter).sort(sortFilter);
-				const array = await cursor.toArray();
-				console.log('WHAT IS THE ARRRAAATYTTYY',array)
+        console.log(sortFilter);
+        const cursor = await col.find(filter).sort(sortFilter);
+        const array = await cursor.toArray();
+        console.log('WHAT IS THE ARRRAAATYTTYY', array);
 
-				callback(array);
-
-			} catch(error) {
-				console.log('Query error: ' + error.message);
-				callback('"ERROR!! Query error"');
-
-			} finally {
-				client.close();
-			}
-		}
-	)
+        callback(array);
+      } catch (error) {
+        console.log('Query error: ' + error.message);
+        callback('"ERROR!! Query error"');
+      } finally {
+        client.close();
+      }
+    }
+  );
 }
 
 function addHamster(requestsBody, callback) {
