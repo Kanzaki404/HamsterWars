@@ -213,7 +213,7 @@ const Product = () => {
   });
   return (
     <div className="wrapper">
-      <div className="headLine">Wellcome To Our WEBSHOP</div>
+      <div className="headLine">Welcome To Our WEBSHOP</div>
       <NabBar>
         <div className="container">
           <input

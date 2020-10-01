@@ -43,7 +43,7 @@ function Detail({ onBack, todos }) {
   return (
     <div className="App">
       <div className="head">
-        <h2>GoHame Shop /Cart</h2>
+        <h2>GoHam Shop /Cart</h2>
       </div>
 
       <div className="mains">
