@@ -19,6 +19,9 @@ var cors = require('cors');
 // Then use it before your routes are set up:
 app.use(cors());
 app.use(express.static(__dirname + '/../build'));
+app.get('*', function(request, response) {
+  response.sendFile(path.resolve(__dirname, '/../build', 'index.html'));
+});
 // app.use(express.static('Server'))
 app.use(fileUpload());
 app.use((req, res, next) => {
