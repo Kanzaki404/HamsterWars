@@ -609,7 +609,7 @@ export default function Arena() {
     setmenu(true);
   }, []);
 
-  const baseUrl = 'http://localhost:5000/';
+  const baseUrl = '/';
 
   function getHamsta(setHamsters) {
     axios
