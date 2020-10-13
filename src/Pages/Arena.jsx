@@ -609,11 +609,11 @@ export default function Arena() {
     setmenu(true);
   }, []);
 
-  const baseUrl = 'localhost:5000/';
+  // const baseUrl = 'localhost:5000/';
 
   function getHamsta(setHamsters) {
     axios
-      .get(`${baseUrl}battle`)
+      .get(`/battle`)
       .then((res) => {
         setHamsters(res.data);
         setloading(false);
@@ -623,7 +623,7 @@ export default function Arena() {
 
   function AllHamsters(setCustomHamsters) {
     axios
-      .get(`${baseUrl}hamsters`)
+      .get(`/hamsters`)
       .then((res) => {
         console.log(res.data);
         setCustomHamsters(res.data);
@@ -633,7 +633,7 @@ export default function Arena() {
 
   function Callback(e) {
     axios
-      .get(`${baseUrl}battle/${e[0]}/${e[1]}`)
+      .get(`/battle/${e[0]}/${e[1]}`)
       .then((res) => {
         console.log(res.data);
         setcustomduo(res.data);
@@ -657,7 +657,7 @@ export default function Arena() {
     let datatosend = JSON.stringify(winner);
 
     axios
-      .put(`${baseUrl}result/${datatosend}`)
+      .put(`/result/${datatosend}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -678,7 +678,7 @@ export default function Arena() {
     let datatosend = JSON.stringify(winner);
 
     axios
-      .put(`${baseUrl}result/${datatosend}`)
+      .put(`/result/${datatosend}`)
       .then((res) => {
         console.log(res.data);
       })

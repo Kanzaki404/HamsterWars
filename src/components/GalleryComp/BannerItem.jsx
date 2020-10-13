@@ -1,8 +1,8 @@
-import React, {useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import defImage from '../../assets/testPhotoGallery/default-warrior.jpg'
+import defImage from '../../assets/testPhotoGallery/default-warrior.jpg';
 
-import axios from 'axios'
+import axios from 'axios';
 const BannerWrapper = styled.div`
   background-color: #790000;
   .rectangle {
@@ -16,7 +16,7 @@ const BannerWrapper = styled.div`
     h2 {
       color: white;
     }
-    
+
     .weakInfo {
       color: white;
     }
@@ -43,47 +43,37 @@ const BannerWrapper = styled.div`
   }
 `;
 const ProfileImg = styled.div`
+  height: 170px;
+  width: 170px;
 
-
-      height: 170px;
-      width: 170px;
-    
-     background-image: url(${({ ifp }) => ifp !== null ? ifp : {defImage}});
-      background-position: 50% 50%;
-      background-repeat: no-repeat;
-      background-size: cover;
-      border-radius: 5px;
-      margin-left: auto;
-      margin-right: auto;
-      
-    
+  background-image: url(${({ ifp }) => (ifp !== null ? ifp : { defImage })});
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
 `;
-const baseUrl = "http://localhost:5000/";
-function getImage(imgName,setImageFromServer){
+const baseUrl = 'http://localhost:5000/';
+function getImage(imgName, setImageFromServer) {
   axios
-  .get(`${baseUrl}hamstersPhotos`,{ params: imgName })
-  .then((res) => {
-    setImageFromServer(res.data)
-  })
-  .catch((err) => console.log("ERROR ---> " + err));
+    .get(`/hamstersPhotos`, { params: imgName })
+    .then((res) => {
+      setImageFromServer(res.data);
+    })
+    .catch((err) => console.log('ERROR ---> ' + err));
 }
 export default function BannerItem({ data }) {
   const [imageFromServer, setImageFromServer] = useState('');
-  
+
   useEffect(() => {
-    getImage(data.imgName,setImageFromServer)
-    
-  },[data.imgName])
+    getImage(data.imgName, setImageFromServer);
+  }, [data.imgName]);
   return (
     <BannerWrapper>
-      
       <div className="rectangle">
         <h2>{data.name}</h2>
-        <ProfileImg 
-        className="profileImage" 
-        ifp={imageFromServer}
-        
-        ></ProfileImg>
+        <ProfileImg className="profileImage" ifp={imageFromServer}></ProfileImg>
         <div className="weakInfo">
           <p>Weakness:</p>
           <p>{data.favFood}</p>

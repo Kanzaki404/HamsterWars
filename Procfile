@@ -1,1 +1,2 @@
-web: npm run start
+release: npm run build
+web: node Server/Server.js

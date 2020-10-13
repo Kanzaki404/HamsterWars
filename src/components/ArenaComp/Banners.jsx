@@ -250,11 +250,11 @@ export const BlueText = styled.h1`
 //   display: flex;
 // `;
 
-const baseUrl = 'http://localhost:5000/';
+// const baseUrl = 'http://localhost:5000/';
 
 function Getimg(setImageFromServer, team) {
   axios
-    .get(`${baseUrl}hamstersPhotos`, { params: team })
+    .get(`/hamstersPhotos`, { params: team })
     .then((res) => {
       setImageFromServer(res.data);
     })

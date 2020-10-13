@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import ContentItem from "./ContentItem";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import ContentItem from './ContentItem';
+import axios from 'axios';
 const ContentWraper = styled.div`
   width: 800px;
   border-radius: 3px;
@@ -19,7 +19,7 @@ const ContentWraper = styled.div`
     }
 
     h1:after {
-      content: "";
+      content: '';
       display: inline-block;
       height: 0.5em;
       vertical-align: bottom;
@@ -77,11 +77,8 @@ const ContentScroll = styled.div`
     background: #1c1c1c;
   }
 
-
   .elementsByColor,
   div ~ div {
-    
-
     :nth-child(odd) {
       background: white;
       color: black;
@@ -93,57 +90,51 @@ const ContentScroll = styled.div`
   }
 `;
 //---------------------AXIOS API CALL------------------------------------------------------
-const baseUrl = "http://localhost:5000/";
-function getHamsta(setHamsters,TopHamsters) {
+// const baseUrl = "http://localhost:5000/";
+function getHamsta(setHamsters, TopHamsters) {
   axios
-    .get(`${baseUrl}hamsters`)
+    .get(`/hamsters`)
     .then((res) => {
       setHamsters(res.data);
-     
     })
-    .catch((err) => console.log("ERROR ---> " + err));
+    .catch((err) => console.log('ERROR ---> ' + err));
 }
-
-
 
 export default function Content({ mode, newList }) {
   const [hamsters, setHamsters] = useState([]);
   //---------------------GET HAMSTERS------------------------------------------------------
-  
+
   //console.log('in Content',newList);
-//---------------------GETTING NEW FILTERED LIST---------------------------------------------
+  //---------------------GETTING NEW FILTERED LIST---------------------------------------------
   useEffect(() => {
-    if (newList !== "remove" && newList.length >= 1) {
+    if (newList !== 'remove' && newList.length >= 1) {
       console.log('Triggered');
       setHamsters(newList);
     } else {
       getHamsta(setHamsters);
     }
   }, [newList]);
-//---------------------ALL HAMSTERS------------------------------------------------------
+  //---------------------ALL HAMSTERS------------------------------------------------------
   const HamsterElements = hamsters.map((e) => (
     <ContentItem className="elementsByColor" key={e._id} data={e}></ContentItem>
   ));
   //---------------------TOP HAMSTERS------------------------------------------------------
-  const TopHamsters = [...hamsters]
-  TopHamsters.sort((a, b) => (a.wins > b.wins) ? -1 : 1)
+  const TopHamsters = [...hamsters];
+  TopHamsters.sort((a, b) => (a.wins > b.wins ? -1 : 1));
 
-  const TopHam = TopHamsters.slice(0,5).map((e) => (
+  const TopHam = TopHamsters.slice(0, 5).map((e) => (
     <ContentItem className="elementsByColor" key={e._id} data={e}></ContentItem>
-    ))
-  //---------------------BOTTOM HAMSTERS------------------------------------------------------
-  const BottomHamsters = [...hamsters]
-  BottomHamsters.sort((a, b) => (a.wins > b.wins) ? 1 : -1)
-
-  const BotHam = BottomHamsters.slice(0,5).map((e) => (
-    <ContentItem className="elementsByColor" key={e._id} data={e}></ContentItem>
-    ))
-  //---------------------TOTAL MATCHES------------------------------------------------------
-  let totalMatches = 0; 
-  hamsters.map((e)=>(
-    totalMatches += e.games/2
   ));
+  //---------------------BOTTOM HAMSTERS------------------------------------------------------
+  const BottomHamsters = [...hamsters];
+  BottomHamsters.sort((a, b) => (a.wins > b.wins ? 1 : -1));
 
+  const BotHam = BottomHamsters.slice(0, 5).map((e) => (
+    <ContentItem className="elementsByColor" key={e._id} data={e}></ContentItem>
+  ));
+  //---------------------TOTAL MATCHES------------------------------------------------------
+  let totalMatches = 0;
+  hamsters.map((e) => (totalMatches += e.games / 2));
 
   return (
     <ContentWraper>
@@ -153,15 +144,11 @@ export default function Content({ mode, newList }) {
             <h1>Top 5</h1>
           </div>
 
-          <div className="second">
-          {TopHam}
-          </div>
+          <div className="second">{TopHam}</div>
           <div className="first">
             <h1>Bottom 5</h1>
           </div>
-          <div className="second">
-          {BotHam}
-          </div>
+          <div className="second">{BotHam}</div>
           <div className="first">
             <h1>Total Matches</h1>
             <p className="totalMatchNum">{totalMatches}</p>

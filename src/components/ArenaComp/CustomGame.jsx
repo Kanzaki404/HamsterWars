@@ -214,7 +214,7 @@ const TeamNames = styled.h1`
 
 function Getimg(setImageFromServer, team) {
   axios
-    .get(`${baseUrl}hamstersPhotos`, { params: team })
+    .get(`/hamstersPhotos`, { params: team })
     .then((res) => {
       setImageFromServer(res.data);
     })

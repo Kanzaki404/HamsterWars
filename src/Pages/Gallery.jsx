@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Banner from "../components/GalleryComp/BannerItem";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Banner from '../components/GalleryComp/BannerItem';
+import axios from 'axios';
 const GalleryWrapper = styled.div`
   padding-top: 80px;
   padding-bottom: 50px;
@@ -17,23 +17,21 @@ const GalleryWrapper = styled.div`
   }
 `;
 // testing purposes (result: works!)
-const baseUrl = "http://localhost:5000/";
+// const baseUrl = "http://localhost:5000/";
 function getHamsta(setHamsters) {
   axios
-    .get(`${baseUrl}hamsters`)
+    .get(`/hamsters`)
     .then((res) => {
-      console.log(res.data)
+      console.log(res.data);
       setHamsters(res.data);
-      
     })
-    .catch((err) => console.log("ERROR ---> " + err));
+    .catch((err) => console.log('ERROR ---> ' + err));
 }
 export default function Gallery() {
   const [hamsters, setHamsters] = useState([]);
 
   useEffect(() => {
     getHamsta(setHamsters);
-    
   }, []);
 
   const HamsterBanner = hamsters.map((e) => (
